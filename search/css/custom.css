@@ -1,0 +1,57 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+#titlebar{
+    min-height: 80px;
+    padding: 12px;
+    margin: 0px 0px 24px 0px;
+    background-color: #428bca;
+    border-bottom: 1px solid #ebebeb;
+}
+
+
+.first{
+    margin-top: 0px;
+}
+
+
+.centered{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.straight{
+    margin-top: 20px;
+    border-radius: 0px !important;
+}
+
+
+.fullwidth{
+    width: 100%;
+}
+
+
+.title, .title h1{
+    margin: 0px;
+    font-size: 24px;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title:hover{
+    text-decoration: none;
+}
+
+.wrapper{
+    width: calc(100% - 30px);
+}
+
+.searchbox{
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+}
