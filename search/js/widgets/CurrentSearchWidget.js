@@ -38,7 +38,7 @@
                 }
             }
             else {
-                $(this.target).html('<li>Viewing all documents!</li>');
+                $(this.target).html('<li>Er is geen filter actief</li>');
             }
         },
 
