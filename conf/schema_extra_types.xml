@@ -2,6 +2,7 @@
     <!-- content-type derivatives for human like facetting -->
     <fieldType name="map_cnt_fam" class ="solr.StrField" sortMissingLast="true" >
       <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- Office Documents-->
         <filter class="solr.PatternReplaceFilterFactory" replace="all" 
                 pattern="^(application/.*ms-?word.*|text/x-ms-odc).*$" 
@@ -94,6 +95,7 @@
 
     <fieldType name="map_cnt_app"  class ="solr.StrField" sortMissingLast="true" >
       <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- Text Documents-->
         <filter class="solr.PatternReplaceFilterFactory" replace="all" 
                 pattern="^(application/.*ms-?word.*|text/x-ms-odc).*$" 
@@ -183,6 +185,7 @@
     
     <fieldType name="map_cnt_var"  class ="solr.StrField" sortMissingLast="true" >
       <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- MS Office	-->
         <filter class="solr.PatternReplaceFilterFactory" replace="all" 
                 pattern="^[^/]*/.*ms-?(word|odc|access|excel|powerpoint).*$" 
