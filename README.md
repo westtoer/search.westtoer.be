@@ -1,10 +1,8 @@
-search.westtoer.be
-==================
+#search.westtoer.be
 
 An search engine for the Westtoer Intranet, based upon [Ajax Solr](https://github.com/evolvingweb/ajax-solr).
 
-Why is this on Github?
-======================
+##Why is this on Github?
 
 Westtoer's development has a sharing-is-caring mentality. We believe that our project code could be of good use for people setting up an intranet solution for a SMB with Drupal and Apache Solr. 
 
@@ -14,4 +12,4 @@ The Drupal Solr plugins don't like to search through files, so therefore we went
 
 The scripts will allow for modular files indexing, ranging from a full index to incremental updates of the index.
 
-We hope you can use this project as a lead on how to create a good intranet solution. If you had some good guidelines, please share a comment on Twitter or send a mail to im@nielsvermaut.eu.
+We hope you can use this project as a lead on how to create a good intranet solution. If you had some good guidelines, please share a comment on Twitter or send a mail to im@nielsvermaut.eu
