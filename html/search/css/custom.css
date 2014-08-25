@@ -1,0 +1,159 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+#titlebar{
+    min-height: 60px;
+    padding: 12px;
+    margin: 0px 0px 24px 0px;
+    background-color: #428bca;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.menu{
+    list-style-type: none;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.menuitem{
+    display: inline;
+    color: #fff;
+    text-transform: uppercase;
+    margin-left: 25px;
+}
+
+.menuitem a, .menuitem a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+
+@media (max-width: 690px) {
+    .menuitem{
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .menuitem:first-child{
+        margin-top: 12px;
+    }
+    header .container .pull-left, header .container .pull-right{
+        float: none;
+        width: 100%;
+    }
+
+    .pull-left h1{
+        text-align: center;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 12px;
+    }
+
+    .menu{
+        padding:0;
+    }
+}
+
+
+
+.first{
+    margin-top: 0px;
+}
+
+.right{
+    text-align: right;
+}
+
+
+.centered{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.straight{
+    margin-top: 20px;
+    border-radius: 0px !important;
+}
+
+
+.fullwidth{
+    width: 100%;
+}
+
+
+.title, .title h1{
+    margin: 0px;
+    font-size: 24px;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.title:hover{
+    text-decoration: none;
+}
+
+.wrapper{
+    width: calc(100% - 30px);
+}
+
+.searchbox{
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+}
+
+#selection{
+    list-style-type: none;
+    padding:0;
+}
+
+#pager{
+    margin: 12px auto;
+    text-align: center;
+}
+
+#pager li{
+    display: inline-block;
+    list-style-type: none;
+    padding: 6px 12px;
+    border: 1px solid #e7e7e7;
+    border-right: 0;
+}
+
+#pager li:first-child{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#pager li:last-child{
+    border-right: 1px solid #e7e7e7;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.facet-subs, #facets, #calendar{
+    list-style-type: none;
+    padding:0;
+}
+
+.facet-title{
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-left: 0 !important;
+    margin-top: 24px;
+}
+
+.facet-subs li, .date{
+    padding-left: 12px;
+}
+
+.count{
+    float: right;
+    color: #555555;
+}
