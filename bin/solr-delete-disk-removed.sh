@@ -13,7 +13,7 @@ if [[ $RESET == "reset" ]]; then
   rm dump-previous.txt
 fi
 
-find ${SEARCHDIR} ${FNDARGS} | sort > dump-current.txt 2>>/dev/null
+echo "find '${SEARCHDIR}' ${FNDARGS}" | sh | sort > dump-current.txt 2>>/dev/null
 
 if [[ -f dump-previous.txt ]]; then
   comm -23 dump-previous.txt dump-current.txt | while read removed; do

@@ -42,7 +42,7 @@ echo "--> counting ${TOTALCOUNT} files."
 
 echo -e "\n\nprocess files in ${FOLDERTOINDEX} with filter [${FNDARGS}] and feed to solr\n"; 
 echo -e "\n\nprocess files in ${FOLDERTOINDEX} with filter [${FNDARGS}] and feed to solr\n" >> ${THISLOG};
-find "${FOLDERTOINDEX}" ${FNDARGS} | while read f; do
+echo "find '${FOLDERTOINDEX}' ${FNDARGS}" | sh | while read f; do
   echo -e "\nprocessing ${f}" >> ${THISLOG};
   ${SCRIPTDIR}/solr-feed.sh "$f" >> ${THISLOG};
   echo -n ".";
