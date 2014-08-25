@@ -29,7 +29,6 @@ AjaxSolr.AbstractFacetWidget = AjaxSolr.AbstractWidget.extend(
     AjaxSolr.extend(this, {
       start: 0,
       field: null,
-      translation: null,
       multivalue: true
     }, attributes);
   },
