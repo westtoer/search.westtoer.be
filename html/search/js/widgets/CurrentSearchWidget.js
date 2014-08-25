@@ -6,6 +6,7 @@
         afterRequest: function () {
             var self = this;
             var links = [];
+            var dsCreated = [];
 
             var q = this.manager.store.get('q').val();
             if (q != '*:*') {
@@ -18,11 +19,34 @@
 
             var fq = this.manager.store.values('fq');
             for (var i = 0, l = fq.length; i < l; i++) {
-                links.push($('<a href="#"></a>').text('(x) ' + fq[i]).click(self.removeFacet(fq[i])));
+                if(fq[i].substr(0,10) == 'ds_created'){
+                    dsCreated.push(fq[i]);
+                } else {
+                    links.push($('<a href="#"></a>').text('(x) ' + fq[i]).click(function(){
+
+                        self.removeFacet(fq[i]);
+
+
+                    }));
+                }
+
+                if(i == fq.length - 1){
+                    if(dsCreated.length != 0){
+                        links.push($('<a href="#"></a>').text('(x) ' + dsCreated[dsCreated.length - 1]).click(
+                            function(){
+                                self.manager.store.addByValue('depth', this.manager.store.get('depth').val() - 1);
+                                self.removeFacet(dsCreated[dsCreated.length - 1]);
+                                return false;
+                            }
+
+
+                        ));
+                    }
+                }
             }
 
             if (links.length > 1) {
-                links.unshift($('<a href="#"></a>').text('remove all').click(function () {
+                links.unshift($('<a href="#"></a>').text('Verwijder filters').click(function () {
                     self.manager.store.get('q').val('*:*');
                     self.manager.store.remove('fq');
                     self.doRequest();
