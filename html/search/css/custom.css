@@ -137,7 +137,7 @@ html, body{
     border-bottom-right-radius: 3px;
 }
 
-.facet-subs, #facets{
+.facet-subs, #facets, #calendar{
     list-style-type: none;
     padding:0;
 }
@@ -149,6 +149,11 @@ html, body{
     margin-top: 24px;
 }
 
-.facet-subs li{
+.facet-subs li, .date{
     padding-left: 12px;
+}
+
+.count{
+    float: right;
+    color: #555555;
 }

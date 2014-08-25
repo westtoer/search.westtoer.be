@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <!-- Dependancies -->
         <script src="js/jquery.min.js"></script>
+        <script src="js/moment.js" charset="UTF-8"></script>
 
         <!-- Lib -->
         <script src="../core/Core.js"></script>
@@ -13,6 +15,7 @@
         <script src="../core/AbstractWidget.js"></script>
         <script src="../core/AbstractTextWidget.js"></script>
         <script src="../core/AbstractFacetWidget.js"></script>
+        <script src="../core/ParameterHashStore.js"></script>
 
         <!-- Custom -->
         <script src="js/westtoer.js"></script>
@@ -23,6 +26,7 @@
         <script src="js/widgets/CurrentSearchWidget.js"></script>
         <script src="js/widgets/TextWidget.js"></script>
         <script src="js/widgets/FacetWidget.js"></script>
+        <script src="js/widgets/CalendarWidget.js"></script>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -37,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 pull-left">
-                    <h1 class="title">Westtoer</h1>
+                    <a href="http://intranet.westtoer.be"><h1 class="title">Westtoer</h1></a>
                 </div>
                 <div class="col-md-4 pull-right right">
                     <ul class="menu">
@@ -70,12 +74,12 @@
                     <ul id="selection"></ul>
                 </div>
                 <div class="well straight first">
-                    <h3 class="first">Facetten</h3>
+                    <h3 class="first">Beschikbare filters</h3>
                     <ul id="facets">
                         <ul id="ss_name" class="facet-subs"></ul>
                         <ul id="content_type" class="facet-subs"></ul>
                         <ul id="entity_type" class="facet-subs"></ul>
-                    </ul>
+                        <ul id="calendar"></ul>
                 </div>
             </div>
 
