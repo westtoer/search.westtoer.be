@@ -6,10 +6,12 @@ urlencode() {
 }
 
 relfile=$(echo "${file}" | sed -e 's/^\/mnt\/westtoer//')
-path=$(echo "$relfile" | sed -e 's/ /\\ /g')
+path=$(echo "$relfile" | sed -e 's/ /\\ /g')  #avoid issues with spaces on commandline-args
 qval=$(urlencode "$relfile")
-filename=$(urlencode ${path##*/})
-#qval=$(echo "$relfile" | sed -e "s/%/%25/g;s/ /%20/g;s/'/%27/g;s/(/%28/g;s/)/%29/g;s/&/%26/g;s/;/%3B/g")
+
+name=${relfile##*/}  #variant following the last slash
+filename=$(urlencode "${name}" )
+
 
 echo "indexing ${file} as qparam = ${qval} and path= ${path}"
 
