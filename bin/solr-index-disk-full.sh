@@ -3,6 +3,7 @@
 SCRIPTDIR="$(cd $(dirname "${BASH_SOURCE[0]}" ) && pwd)";
 NICE="nice -n 15"
 
+${NICE} ${SCRIPTDIR}/solr-delete-all                   >> /dev/null
 ${NICE} ${SCRIPTDIR}/solr-chain.sh all /mnt/westtoer/  >> /dev/null
 ${NICE} ${SCRIPTDIR}/solr-index-drupal.sh              >> /dev/null
 ${NICE} ${SCRIPTDIR}/solr-delete-disk-removed.sh reset >> /dev/null
