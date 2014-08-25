@@ -32,10 +32,10 @@
                 var cnt = item.count;
                 var facet = item.facet;
                 if (facet) {
-                    var fctLabel = facet.trim() || "<<onbekend>>"
+                    var fctLabel = facet.trim() || "(Onbekend)"
                     if(item.count > 0){
-                        var $li = $('<li></li>').append(
-                            $('<a href="#"></a>').attr('id', me.field + '-' + facet).text(fctLabel + ' (' + cnt + ')').click(me.clickHandler(facet))
+                        var $li = $('<li class="' + me.field +'"></li>').append(
+                            $('<a></a>').attr('id', me.field + '-' + facet).append(fctLabel + ' <span class="count">' + cnt + '</span>').click(me.clickHandler(facet))
                         );
                         $(me.target).append($li);
                         if (i>5) {
@@ -54,6 +54,16 @@
                 }
             });
 
+            var facetElements = $("." + me.field).map(function() {
+                return this.innerHTML;
+            }).get();
+
+            $(me.target).show();
+
+            if(facetElements.length < 2){
+                console.log(facetElements.length + ' ' + me.field);
+                $(me.target).hide();
+            }
             if ($more !== undefined) {
                 $(me.target).append($more);
             }
