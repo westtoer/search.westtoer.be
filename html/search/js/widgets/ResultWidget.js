@@ -47,13 +47,15 @@
         },
 
         template: function(doc){
+            moment.locale('nl');
+
             var snippet = '';
 
             if(doc.teaser.length > 300){
-                snippet += '<div class="row"><div class="col-md-9">' + doc.teaser.substring(0,300) + '</div><div class="col-md-3 right">'+ doc.ds_created +'</div></div>';
+                snippet += '<div class="row"><div class="col-md-9">' + doc.teaser.substring(0,300) + '</div><div class="col-md-3 right">'+ moment(doc.ds_created).fromNow() +'</div></div>';
                 snippet += '<span style="display: none">' + doc.teaser.substring(300) + '</span><a href="#" class="more">Meer</a>';
             } else {
-                snippet += '<div class="row"><div class="col-md-9">' + doc.teaser + '</div><div class="col-md-3 right">'+ doc.ds_created +'</div></div>';
+                snippet += '<div class="row"><div class="col-md-9">' + doc.teaser + '</div><div class="col-md-3 right">'+ moment(doc.ds_created).fromNow() +'</div></div>';
             }
 
             var output = '';
