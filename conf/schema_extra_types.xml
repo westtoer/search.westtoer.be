@@ -1,30 +1,283 @@
 <types>
-<!--
-  Adding German language to our Solr Schema German
-  If you enable this, make sure you have a folder called lang with stopwords_de.txt
-  and synonyms_de.txt in there
--->
-<!--
-    <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
-        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" words="lang/stopwords_de.txt" format="snowball" ignoreCase="true" enablePositionIncrements="true"/>
-        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" splitOnCaseChange="1" splitOnNumerics="1" catenateWords="1" catenateNumbers="1" catenateAll="0" protected="protwords.txt" preserveOriginal="1"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.GermanLightStemFilterFactory"/>
-        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="lang/synonyms_de.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.StopFilterFactory" words="lang/stopwords_de.txt" format="snowball" ignoreCase="true" enablePositionIncrements="true"/>
-        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" splitOnCaseChange="1" splitOnNumerics="1" catenateWords="0" catenateNumbers="0" catenateAll="0" protected="protwords.txt" preserveOriginal="1"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.GermanLightStemFilterFactory"/>
-        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    <!-- content-type derivatives for human like facetting -->
+    <fieldType name="map_cnt_fam" class ="solr.StrField" sortMissingLast="true" >
+      <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <!-- Office Documents-->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^(application/.*ms-?word.*|text/x-ms-odc).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(wordprocessing|text).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^text/plain.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/rtf.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/pdf.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/(postscript|x-emf).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-?excel.*.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(spreadsheet).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^(text/html|application/xhtml).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-?powerpoint.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(presentation).*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*adobe.*indesign.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/x-mspublisher.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*msaccess.*$" 
+                replacement="Office"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^(application/(.*office|.*tika.*)|message).*$" 
+                replacement="Office"/>
+        <!-- Media Assets -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/.*$" 
+                replacement="Media"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^audio/.*$" 
+                replacement="Media"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^video/.*$" 
+                replacement="Media"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^applicaton/x-shockwave-flash.*$" 
+                replacement="Media"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/mp4*$" 
+                replacement="Media"/>
+        <!-- System Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/octet-stream.*$" 
+                replacement="System"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*msdownload.*$" 
+                replacement="System"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*(font|help)*$" 
+                replacement="System"/>
+        <!-- Archive Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-outlook.*$" 
+                replacement="Archive"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/x-.*(compressed|archive|bplist|zip|stuffit).*$"
+                replacement="Archive"/>
+        <!-- Geospatial Map Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*kml.*$" 
+                replacement="GeoMap"/>
+        <!-- The Remainder -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]+/.*$" 
+                replacement="Other"/>
       </analyzer>
     </fieldType>
--->
+
+    <fieldType name="map_cnt_app"  class ="solr.StrField" sortMissingLast="true" >
+      <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <!-- Text Documents-->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^(application/.*ms-?word.*|text/x-ms-odc).*$" 
+                replacement="Text"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(wordprocessing|text).*$" 
+                replacement="Text"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^text/plain.*$" 
+                replacement="Text"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/rtf.*$" 
+                replacement="Text"/>
+        <!-- Print Ready docs -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/pdf.*$" 
+                replacement="Print"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/(postscript|x-emf).*$" 
+                replacement="Print"/>
+        <!-- Spreadsheet -->          
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-?excel.*.*$" 
+                replacement="Spreadsheet"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(spreadsheet).*$" 
+                replacement="Spreadsheet"/>
+        <!-- Web Pages -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^(text/html|application/xhtml).*$" 
+                replacement="Web"/>
+        <!-- Presentation -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-?powerpoint.*$" 
+                replacement="Presentation"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*(presentation).*$" 
+                replacement="Presentation"/>
+        <!-- Publishing -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*adobe.*indesign.*$" 
+                replacement="Publishing"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/x-mspublisher.*$" 
+                replacement="Publishing"/>
+        <!-- Database -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*msaccess.*$" 
+                replacement="Database"/>
+        <!-- Image Assets -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/.*$" 
+                replacement="Image"/>
+        <!-- Audio Assets -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^audio/.*$" 
+                replacement="Audio"/>
+        <!-- Video Assets -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^video/.*$" 
+                replacement="Video"/>
+        <!-- Interactive Assets -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^applicaton/x-shockwave-flash.*$" 
+                replacement="Interactive"/>
+        <!-- Binary Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/octet-stream.*$" 
+                replacement="Binary"/>
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*msdownload.*$" 
+                replacement="Binary"/>
+        <!-- Mail Archive Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-outlook.*$" 
+                replacement="Mail"/>
+        <!-- Geospatial Map Files -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*kml.*$" 
+                replacement="Map"/>
+        <!-- The Remainder -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]+/.*$" 
+                replacement="Other"/>
+      </analyzer>
+    </fieldType>
+    
+    <fieldType name="map_cnt_var"  class ="solr.StrField" sortMissingLast="true" >
+      <analyzer> 
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <!-- MS Office	-->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]*/.*ms-?(word|odc|access|excel|powerpoint).*$" 
+                replacement="MS Office"/>
+        <!-- OpenDocument		^application/vnd.*open.*document.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/vnd.*open.*document.*$" 
+                replacement="OpenDocument"/>
+        <!-- Plain		^text/plain -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^text/plain.*$" 
+                replacement="Plain"/>
+        <!-- PDF		^application/pdf -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/pdf.*$" 
+                replacement="Office"/>
+        <!-- HTML			^(text/html|application/xhtml).* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]*/x?html.*$" 
+                replacement="Web Page"/>
+        <!-- InDesign		^application/.*adobe.*indesign.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.adobe.*indesign.*$" 
+                replacement="InDesign"/>
+        <!-- JPEG		^image/jpeg.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/jpeg.*$" 
+                replacement="JPEG"/>
+        <!-- PNG		^image/png.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/png.*$" 
+                replacement="PNG"/>
+        <!-- TIFF	^image/tiff.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/tiff.*$" 
+                replacement="TIFF"/>
+        <!-- GIF		^image/gif.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/gif.*$" 
+                replacement="GIF"/>
+        <!-- BMP	^image/.*bmp.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/.*bmp.*$" 
+                replacement="BMP"/>
+        <!-- Photoshop		^image/.*photoshop.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^image/.*photoshop.*$" 
+                replacement="Photoshop"/>
+        <!-- MPEG		^.*/mpeg.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^^[^/]*/mpeg.*$" 
+                replacement="MPEG"/>
+        <!-- WMV		^.*/.*wmv.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]*/wmv.*$" 
+                replacement="WMV"/>
+        <!-- MP4		^.*/mp4.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]*/mp4.*$" 
+                replacement="MP4"/>
+        <!-- Flash		^application/x-shockwave-flash -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/x-shockwave-flash.*$" 
+                replacement="Flash"/>
+        <!-- File		^application/octet-stream -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/octet-stream.*$" 
+                replacement="Binary"/>
+        <!-- DLL/EXE		^application/.*msdownload.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*msdownload.*$" 
+                replacement="DLL/EXE"/>
+        <!-- Outlook		^application/.*ms-outlook.*-->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*ms-outlook.*$" 
+                replacement="Outlook"/>
+        <!-- Zip	^application/zip.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/zip.*$" 
+                replacement="Zip"/>
+        <!-- KML		^application/.*kml.* -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/.*kml.*$" 
+                replacement="KML"/>
+        <!-- XML	^application/xml -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^application/xml.*$" 
+                replacement="XML"/>
+        <!-- The Remainder -->
+        <filter class="solr.PatternReplaceFilterFactory" replace="all" 
+                pattern="^[^/]+/.*$" 
+                replacement="Other"/>
+      </analyzer>
+    </fieldType>
 </types>
