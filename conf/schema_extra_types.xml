@@ -1,6 +1,6 @@
 <types>
     <!-- content-type derivatives for human like facetting -->
-    <fieldType name="map_cnt_fam" class ="solr.StrField" sortMissingLast="true" >
+    <fieldType name="map_cnt_fam" class ="solr.TextField" sortMissingLast="true" >
       <analyzer> 
         <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- Office Documents-->
@@ -93,7 +93,7 @@
       </analyzer>
     </fieldType>
 
-    <fieldType name="map_cnt_app"  class ="solr.StrField" sortMissingLast="true" >
+    <fieldType name="map_cnt_app"  class ="solr.TextField" sortMissingLast="true" >
       <analyzer> 
         <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- Text Documents-->
@@ -183,7 +183,7 @@
       </analyzer>
     </fieldType>
     
-    <fieldType name="map_cnt_var"  class ="solr.StrField" sortMissingLast="true" >
+    <fieldType name="map_cnt_var"  class ="solr.TextField" sortMissingLast="true" >
       <analyzer> 
         <tokenizer class="solr.KeywordTokenizerFactory"/>
         <!-- MS Office	-->
