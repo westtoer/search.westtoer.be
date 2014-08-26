@@ -38,7 +38,7 @@ var Manager;
             target: '#search'
         }));
 
-        Manager.addWidget(new AjaxSolr.DrillWidget({
+        Manager.addWidget(new AjaxSolr.DrillDateWidget({
             id: 'calendar',
             target: '#calendar',
             field: 'ds_created'
