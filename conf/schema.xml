@@ -414,19 +414,6 @@
     -->
     <field name="spell" type="textSpell" indexed="true" stored="false" multiValued="true"/>
 
-    <!-- 20140731 added these fields to capture extra stuff from the extracting module -->
-    <field name="title" type="text" indexed="true" stored="true" multiValued="true"/>
-    <field name="subject" type="text" indexed="true" stored="true"/>
-    <field name="description" type="text" indexed="true" stored="true"/>
-    <field name="comments" type="text" indexed="true" stored="true"/>
-    <field name="keywords" type="text" indexed="true" stored="true"/>
-    <field name="category" type="text" indexed="true" stored="true"/>
-    <field name="resourcename" type="text" indexed="true" stored="true"/>
-    <field name="content_type" type="string" indexed="true" stored="true" multiValued="true"/>
-    <field name="last_modified" type="date" indexed="true" stored="true"/>
-    <field name="links" type="string" indexed="true" stored="true" multiValued="true"/>
-    <!-- end added documents -->
-
     <!-- copyField commands copy one field to another at the time a document
          is added to the index.  It's used either to index the same field differently,
          or to add multiple fields to the same field for easier/faster searching.  -->

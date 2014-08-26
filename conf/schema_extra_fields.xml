@@ -1,4 +1,30 @@
 <fields>
+
+   <!-- 
+    | NOTE:
+    | Next to inserting these new types for the inclusion of new types, you should also consider to
+    | set the fields named 'content' and 'spell' to stored="false" 
+    |
+    | When indexing large shared disks into solr this will restrain solr to ony keep an index, but not 
+    | also store the (textual) content. This reduces the required storage at the side of SOLR. 
+    | On the down-side it also disables highhtlight and preview features of content from the SOLR index
+    |
+    |-->
+
+
+   <!-- added these fields to capture extra stuff from the extracting module -->
+   <field name="title" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="subject" type="text" indexed="true" stored="true"/>
+   <field name="description" type="text" indexed="true" stored="true"/>
+   <field name="comments" type="text" indexed="true" stored="true"/>
+   <field name="keywords" type="text" indexed="true" stored="true"/>
+   <field name="category" type="text" indexed="true" stored="true"/>
+   <field name="resourcename" type="text" indexed="true" stored="true"/>
+   <field name="content_type" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="last_modified" type="date" indexed="true" stored="true"/>
+   <field name="links" type="string" indexed="true" stored="true" multiValued="true"/>
+   <!-- end added documents -->
+
    <!-- content-type derivatives for human like facetting -->
    <field name="content_family"       type="map_cnt_fam" indexed="true" stored="true" multiValued="true"/>
    <field name="content_application"  type="map_cnt_app" indexed="true" stored="true" multiValued="true"/>
